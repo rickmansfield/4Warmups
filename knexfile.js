@@ -5,8 +5,15 @@ module.exports = {
   development: {
     client: 'sqlite3',
     connection: {
-      filename: './dev.sqlite3'
-    }
+      filename: './famrs.db3'
+    },
+    useNullAsDefault: true,
+    pool: {
+      afterCreate: (conn, done) => {
+        //runs after a connection is made to the sqlite engine
+        conn.run('PRAGMA froeign_keys = ON', done); //turn off FK enforcement
+      },
+    },
   },
 
   // staging: {
